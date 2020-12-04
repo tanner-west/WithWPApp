@@ -3,11 +3,11 @@ import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
-  View,
   Text,
   StatusBar,
 } from 'react-native';
 import axios from 'axios';
+import Post from './components/Post';
 
 export default function App() {
   const [postData, setPostData] = useState(undefined);
@@ -26,12 +26,7 @@ export default function App() {
           style={styles.scrollView}>
           <Text style={styles.heading}>My Posts</Text>
           {postData
-            ? postData.map((post) => (
-                <View key={post.id}>
-                  <Text>{post.title.rendered}</Text>
-                  <Text>{post.content.rendered}</Text>
-                </View>
-              ))
+            ? postData.map((post) => <Post post={post} key={post.id} />)
             : null}
         </ScrollView>
       </SafeAreaView>
@@ -42,6 +37,8 @@ export default function App() {
 const styles = StyleSheet.create({
   heading: {
     fontWeight: 'bold',
+    fontSize: 24,
+    marginBottom: 10,
   },
   scrollView: {
     padding: 10,
