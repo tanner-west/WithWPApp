@@ -13,7 +13,7 @@ export default function App() {
   const [postData, setPostData] = useState(undefined);
   useEffect(() => {
     axios
-      .get('https://withwp.app/wp-json/wp/v2/posts')
+      .get('https://withwp.app/wp-json/wp/v2/blog_posts')
       .then((res) => setPostData(res.data))
       .catch((err) => console.log(err));
   }, []);
