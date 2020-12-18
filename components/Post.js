@@ -14,7 +14,27 @@ export default function Post({post: {id, title, content, acf}}) {
         />
       ) : null}
       <Text style={styles.title}>{entities.decode(title.rendered)}</Text>
-      <HTML source={{html: content.rendered}} />
+      <HTML
+        source={{html: content.rendered}}
+        tagsStyles={{}}
+        renderers={{
+          blockquote: (
+            htmlAttribs,
+            children,
+            convertedCSSStyles,
+            passProps,
+          ) => (
+            <View key={passProps.key} style={styles.blockquote}>
+              {children}
+            </View>
+          ),
+          cite: (htmlAttribs, children, convertedCSSStyles, passProps) => (
+            <Text key={passProps.key} style={styles.cite}>
+              {children}
+            </Text>
+          ),
+        }}
+      />
     </View>
   );
 }
@@ -22,5 +42,14 @@ export default function Post({post: {id, title, content, acf}}) {
 const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
+    marginVertical: 10,
+  },
+  blockquote: {
+    borderLeftWidth: 2,
+    borderLeftColor: 'black',
+    paddingLeft: 10,
+  },
+  cite: {
+    color: 'gray',
   },
 });
