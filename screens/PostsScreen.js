@@ -13,9 +13,10 @@ import axios from 'axios';
 
 import {AllHtmlEntities} from 'html-entities';
 import {format} from 'date-fns';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 const entities = new AllHtmlEntities();
 
-export default function PostsScreen() {
+export default function PostsScreen({navigation}) {
   const [postData, setPostData] = useState(undefined);
   useEffect(() => {
     axios
@@ -31,24 +32,30 @@ export default function PostsScreen() {
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
           {postData
-            ? postData.map(({id, title, acf, excerpt, date}) => (
-                <View key={id} style={styles.postContainer}>
-                  <View style={styles.textContainer}>
-                    <Text style={styles.title}>
-                      {entities.decode(title.rendered)}
-                    </Text>
-                    <HTML source={{html: excerpt.rendered}} />
-                    <Text>{format(new Date(date), 'MM/dd/yy')}</Text>
+            ? postData.map((post) => (
+                <TouchableOpacity
+                  key={post.id}
+                  onPress={() =>
+                    navigation.navigate('Blog Post', {post: post})
+                  }>
+                  <View style={styles.postContainer}>
+                    <View style={styles.textContainer}>
+                      <Text style={styles.title}>
+                        {entities.decode(post.title.rendered)}
+                      </Text>
+                      <HTML source={{html: post.excerpt.rendered}} />
+                      <Text>{format(new Date(post.date), 'MM/dd/yy')}</Text>
+                    </View>
+                    <View style={{flex: 1}}>
+                      {post.acf.main_image ? (
+                        <Image
+                          style={{height: 100, resizeMode: 'cover'}}
+                          source={{url: post.acf.main_image.sizes.large}}
+                        />
+                      ) : null}
+                    </View>
                   </View>
-                  <View style={{flex: 1}}>
-                    {acf.main_image ? (
-                      <Image
-                        style={{height: 100, resizeMode: 'cover'}}
-                        source={{url: acf.main_image.sizes.large}}
-                      />
-                    ) : null}
-                  </View>
-                </View>
+                </TouchableOpacity>
               ))
             : null}
         </ScrollView>

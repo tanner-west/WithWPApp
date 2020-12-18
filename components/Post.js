@@ -6,7 +6,7 @@ const entities = new AllHtmlEntities();
 
 export default function Post({post: {id, title, content, acf}}) {
   return (
-    <View>
+    <View style={styles.container}>
       {acf.main_image ? (
         <Image
           style={{height: 300}}
@@ -51,5 +51,8 @@ const styles = StyleSheet.create({
   },
   cite: {
     color: 'gray',
+  },
+  container: {
+    marginHorizontal: 15,
   },
 });
