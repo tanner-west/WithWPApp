@@ -34,6 +34,7 @@ export default function PostsScreen({navigation}) {
           style={styles.scrollView}>
           {sections.map((section) => (
             <TouchableOpacity
+              key={section.name}
               onPress={() => navigation.navigate(section.screen)}>
               <View style={styles.sectionContainer}>
                 <View style={styles.sectionImageContainer}>
