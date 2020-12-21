@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {
   StyleSheet,
   View,
@@ -8,9 +8,8 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-
-import {AllHtmlEntities} from 'html-entities';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+
 const sections = [
   {
     name: 'Code\nGuides',
