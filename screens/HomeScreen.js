@@ -14,7 +14,7 @@ const sections = [
   {
     name: 'Code\nGuides',
     image: require('../assets/stone.jpg'),
-    screen: 'Blog Posts',
+    screen: 'Code Guides',
   },
   {
     name: 'Blog',
